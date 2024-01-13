@@ -1,0 +1,39 @@
+plugins {
+    id("java-gradle-plugin")
+    id("groovy")
+    id("maven-publish") // if you never publish the plugin, you may remove this (but it also does not hurt)
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-gradle-plugin:3.2.0')
+    implementation 'io.freefair.gradle:lombok-plugin:8.4'
+}
+
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
+}
+
+gradlePlugin {
+    plugins {
+        projectBasePlugin {
+            id = 'pro.smartix.gradle.plugins.project-base'
+            implementationClass = 'org.example.ProjectBasePlugin'
+        }
+        settingsBasePlugin {
+            id = 'pro.smartix.gradle.plugins.settings-base'
+            implementationClass = 'org.example.SettingsBasePlugin'
+        }
+    }
+}
+
+group = 'org.example'
+version = "1.0"
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}

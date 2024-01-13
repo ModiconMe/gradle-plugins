@@ -1,0 +1,47 @@
+[versions]
+spring-boot = '3.0.1'
+spring-dependency-management = '1.1.0'
+openApi = '2.1.0'
+java = '17'
+testcontainers = '1.18.1'
+jjwt='0.11.5'
+openfeign = '4.0.0'
+openfeign-jackson = '12.1'
+spock = '2.4-M1-groovy-4.0'
+groovy = '4.0.9'
+
+[libraries]
+spring-web = { module = 'org.springframework.boot:spring-boot-starter-web' }
+spring-validation = { module = 'org.springframework.boot:spring-boot-starter-validation' }
+spring-jpa = { module = 'org.springframework.boot:spring-boot-starter-data-jpa' }
+spring-security = { module = 'org.springframework.boot:spring-boot-starter-security' }
+spring-test = { module = 'org.springframework.boot:spring-boot-starter-test' }
+spring-context = { module = 'org.springframework:spring-context' }
+
+validation-api = { module = 'jakarta.validation:jakarta.validation-api' }
+
+jwt-api = { module = 'io.jsonwebtoken:jjwt-api', version.ref = 'jjwt' }
+jwt-impl = { module = 'io.jsonwebtoken:jjwt-impl', version.ref = 'jjwt' }
+jwt-jackson = { module = 'io.jsonwebtoken:jjwt-jackson', version.ref = 'jjwt' }
+
+testcontainers = { module = 'org.testcontainers:postgresql', version.ref = 'testcontainers' }
+faker = 'com.github.javafaker:javafaker:1.0.2'
+openfeign = { module = 'org.springframework.cloud:spring-cloud-starter-openfeign', version.ref = 'openfeign' }
+openfeign-jackson = { module = 'io.github.openfeign:feign-jackson', version.ref = 'openfeign-jackson' }
+openfeign-jackson-annotations = { module = 'com.fasterxml.jackson.core:jackson-annotations' }
+
+liquebase = { module = 'org.liquibase:liquibase-core' }
+postgreSQL = { module = 'org.postgresql:postgresql' }
+
+openApi = { module = 'org.springdoc:springdoc-openapi-starter-webmvc-ui', version.ref = 'openApi' }
+lombok = { module = 'org.projectlombok:lombok' }
+
+groovy = { module = 'org.apache.groovy:groovy-all', version.ref = 'groovy' }
+spock-spring = { module = 'org.spockframework:spock-spring', version.ref = 'spock' }
+spock-core = { module = 'org.spockframework:spock-core', version.ref = 'spock' }
+
+plugin-spring-dependencyManagement = { module = 'io.spring.gradle:dependency-management-plugin', version.ref = 'spring-dependency-management' }
+plugin-spring-boot = { module = 'org.springframework.boot:spring-boot-gradle-plugin', version.ref = 'spring-boot' }
+plugin-docker = 'com.bmuschko.docker-spring-boot-application:com.bmuschko.docker-spring-boot-application.gradle.plugin:9.3.1'
+plugin-lombok = 'io.freefair.gradle:lombok-plugin:8.0.1'
+plugin-querydsl = 'gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10'
