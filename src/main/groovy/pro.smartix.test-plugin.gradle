@@ -1,0 +1,59 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+
+plugins {
+    id 'jacoco'
+}
+
+/* UNIT TESTS */
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+    testLogging {
+        showStackTraces = true
+        exceptionFormat = TestExceptionFormat.FULL
+        events "PASSED", "FAILED", "SKIPPED"
+    }
+    systemProperties.put('file.encoding', 'UTF-8')
+}
+
+/* JACOCO */
+def jacocoTestReport = tasks.named('jacocoTestReport', JacocoReport)
+jacocoTestReport.configure {
+    reports.xml.required = true
+    executionData.from += files('build/jacoco/test.exec', 'build/jacoco/intTest.exec')
+}
+
+tasks.named('check') {
+    finalizedBy jacocoTestReport
+}
+
+/* INTEGRATION TESTS */
+
+ext.integrationTestSourceSetName = 'intTest'
+
+if (integrationTestSourceSetName != null && !(integrationTestSourceSetName as String).isEmpty()) {
+    sourceSets.register(integrationTestSourceSetName) {
+        java {
+            compileClasspath += sourceSets.main.output
+            runtimeClasspath += sourceSets.main.output
+        }
+    }
+
+    configurations {
+        intTestImplementation.extendsFrom implementation
+        intTestRuntimeOnly.extendsFrom runtimeOnly
+    }
+
+    def intTest = tasks.register('intTest', Test)
+    intTest.configure {
+        description = 'Runs the integration tests.'
+        group = 'verification'
+
+        testClassesDirs = sourceSets.intTest.output.classesDirs
+        classpath = sourceSets.intTest.runtimeClasspath
+        outputs.upToDateWhen { false }
+    }
+
+    tasks.named('check') {
+        dependsOn intTest
+    }
+}

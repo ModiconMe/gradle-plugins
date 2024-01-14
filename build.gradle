@@ -1,11 +1,13 @@
 plugins {
+    id("groovy-gradle-plugin")
     id("java-gradle-plugin")
     id("groovy")
     id("maven-publish") // if you never publish the plugin, you may remove this (but it also does not hurt)
 }
 
 dependencies {
-    implementation('org.springframework.boot:spring-boot-gradle-plugin:3.2.0')
+    implementation 'org.springframework.boot:spring-boot-gradle-plugin:3.2.0'
+    implementation 'io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:1.1.4'
     implementation 'io.freefair.gradle:lombok-plugin:8.4'
 }
 
@@ -16,18 +18,34 @@ repositories {
 
 gradlePlugin {
     plugins {
-        projectBasePlugin {
-            id = 'pro.smartix.gradle.plugins.project-base'
-            implementationClass = 'org.example.ProjectBasePlugin'
+        smartixJavaPlugin {
+            id = 'pro.smartix.gradle.plugins.smartix-java'
+            implementationClass = 'pro.smartix.java.SmartixJavaPlugin'
         }
-        settingsBasePlugin {
-            id = 'pro.smartix.gradle.plugins.settings-base'
-            implementationClass = 'org.example.SettingsBasePlugin'
+        smartixGroovyPlugin {
+            id = 'pro.smartix.gradle.plugins.smartix-groovy'
+            implementationClass = 'pro.smartix.groovy.SmartixGroovyPlugin'
+        }
+        smartixSpringBootPlugin {
+            id = 'pro.smartix.gradle.plugins.smartix-spring-boot'
+            implementationClass = 'pro.smartix.spring.SmartixSpringBootPlugin'
+        }
+        smartixSpringBootDependencyManagementPlugin {
+            id = 'pro.smartix.gradle.plugins.smartix-spring-boot-dependency-management'
+            implementationClass = 'pro.smartix.spring.SmartixSpringBootDependencyManagementPlugin'
+        }
+        smartixBaseTestPlugin {
+            id = 'pro.smartix.gradle.plugins.smartix-base-test'
+            implementationClass = 'pro.smartix.test.SmartixBaseTestPlugin'
+        }
+        smartixIntegrationTestPlugin {
+            id = 'pro.smartix.gradle.plugins.smartix-integration-test'
+            implementationClass = 'pro.smartix.test.SmartixIntegrationTestPlugin'
         }
     }
 }
 
-group = 'org.example'
+group = 'pro.smartix'
 version = "1.0"
 
 publishing {
