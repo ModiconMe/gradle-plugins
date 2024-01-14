@@ -1,0 +1,16 @@
+def branchVersion = new ByteArrayOutputStream()
+
+exec {
+    commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
+    standardOutput = branchVersion
+}
+
+ext.isMaster = branchVersion.toString().startsWith('master')
+
+def getRealVersion(curVersion) {
+    return (isMaster ? curVersion : curVersion + "-SNAPSHOT")
+}
+
+ext {
+    getRealVersion = this.&getRealVersion
+}
