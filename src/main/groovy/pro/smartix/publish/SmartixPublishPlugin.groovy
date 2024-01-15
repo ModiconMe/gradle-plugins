@@ -9,6 +9,8 @@ import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
 import org.gradle.jvm.tasks.Jar
+import org.jfrog.gradle.plugin.artifactory.ArtifactoryPlugin
+import org.jfrog.gradle.plugin.artifactory.dsl.ArtifactoryPluginConvention
 import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 class SmartixPublishPlugin implements Plugin<Project> {
@@ -16,7 +18,11 @@ class SmartixPublishPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
         project.plugins.apply(MavenPublishPlugin)
+        project.plugins.apply(ArtifactoryPlugin)
 
+        project.extensions.getByType(ArtifactoryPluginConvention).publish {
+
+        }
         project.extensions.getByType(PublishingExtension).publications.create('maven', MavenPublication) {
             def hasSpringPlugin = project.plugins.hasPlugin(SpringBootPlugin)
             if (hasSpringPlugin) {
@@ -27,5 +33,7 @@ class SmartixPublishPlugin implements Plugin<Project> {
                 artifactId = project.tasks.named(JavaPlugin.JAR_TASK_NAME, Jar).get().archiveBaseName.get()
             }
         }
+
+        project.extensions.getByType(Publish)
     }
 }
