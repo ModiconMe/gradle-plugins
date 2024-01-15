@@ -9,6 +9,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-gradle-plugin:3.2.0'
     implementation 'io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:1.1.4'
     implementation 'io.freefair.gradle:lombok-plugin:8.4'
+    implementation 'com.palantir.gradle.shadow-jar:gradle-shadow-jar:3.0.0'
 }
 
 repositories {
@@ -41,6 +42,10 @@ gradlePlugin {
         smartixIntegrationTestPlugin {
             id = 'pro.smartix.gradle.plugins.smartix-integration-test'
             implementationClass = 'pro.smartix.test.SmartixIntegrationTestPlugin'
+        }
+        smartixPublishPlugin {
+            id = 'pro.smartix.gradle.plugins.smartix-publish'
+            implementationClass = 'pro.smartix.publish.SmartixPublishPlugin'
         }
     }
 }

@@ -18,7 +18,7 @@ class SmartixIntegrationTestPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-        if (project.plugins.getPlugin(SmartixBaseTestPlugin) == null) {
+        if (!project.plugins.hasPlugin(SmartixBaseTestPlugin)) {
             throw new GradleException("Не найден базовый плагин для тестов")
         }
         integrationTestConfig(project)
